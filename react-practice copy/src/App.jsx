@@ -294,9 +294,10 @@ const scrollTop = () => {
   /* =======================================================
      PLACE ORDER
      ======================================================= */
+
 const placeOrder = async () => {
   const allDetailsFilled = Object.values(customerDetails).every(
-    (value) => value.trim() !== ""
+    (value) => String(value).trim() !== ""
   );
 
   if (!allDetailsFilled) {
@@ -317,32 +318,40 @@ const placeOrder = async () => {
   const orderData = {
     orderId: newOrderId,
     customer: customerDetails,
-    paymentMethod: paymentMethod,
+    paymentMethod,
     items: itemsForOrder,
     total: cartTotal,
   };
 
   try {
-    const response = await fetch("https://mangodi-wale-api.onrender.com/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderData),
-    });
+    const response = await fetch(
+      "https://mangodi-wale-api.onrender.com/api/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      }
+    );
 
     const data = await response.json();
 
-    console.log("Order sent to Backend:", data);
+    console.log("Backend status:", response.status);
+    console.log("Backend response:", data);
 
-    setOrderId(newOrderId);
+    if (!response.ok) {
+      throw new Error(data.message || data.error || "Order could not be saved");
+    }
+
+    setOrderId(data.orderId || newOrderId);
     setOrderItems(itemsForOrder);
     setLastOrderTotal(cartTotal);
     setCart([]);
     setPage("confirm");
   } catch (error) {
     console.error("Order Backend Error:", error);
-    alert("Order could not be sent to backend.");
+    alert("Order could not be saved. Please try again.");
   }
 };
 
