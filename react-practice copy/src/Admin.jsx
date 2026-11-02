@@ -34,7 +34,7 @@ export default function Admin() {
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/orders", {
+    fetch("https://mangodi-wale-api.onrender.com/api/admin/orders", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (response) => {
@@ -89,7 +89,7 @@ export default function Admin() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/orders/${id}/status`,
+        `https://mangodi-wale-api.onrender.com/api/admin/orders/${id}/status`,
         {
           method: "PATCH",
           headers: {

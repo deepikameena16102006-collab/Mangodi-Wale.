@@ -323,7 +323,7 @@ const placeOrder = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:5000/api/orders", {
+    const response = await fetch("https://mangodi-wale-api.onrender.com/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -2089,7 +2089,7 @@ const placeOrder = async () => {
       setSending(true);
 
       try {
-        const response = await fetch("http://localhost:5000/api/contact", {
+        const response = await fetch("https://mangodi-wale-api.onrender.com/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),

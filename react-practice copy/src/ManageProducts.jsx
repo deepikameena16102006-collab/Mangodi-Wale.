@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ManageProducts.css";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = "https://mangodi-wale-api.onrender.com/api/products";
 
 const SIZES = ["250g", "500g", "1kg"];
 
